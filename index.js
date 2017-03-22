@@ -22,6 +22,15 @@ ElasticAll.prototype.connect = function (connectionConf) {
 };
 
 /**
+ * To use an existing elasticsearch client connection
+ * @param connectionObject
+ */
+ElasticAll.prototype.connect = function (connectionObject) {
+  this.client = connectionObject;
+  return this;
+};
+
+/**
  *
  * @param searchParameters
  */
