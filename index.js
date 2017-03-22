@@ -2,12 +2,16 @@
 
 const elastic = require('elasticsearch');
 
+
 function ElasticAll() {
   this.client = null;
   return this;
 }
 
-
+/**
+ *
+ * @param connectionConf
+ */
 ElasticAll.prototype.connect = function (connectionConf) {
 
   if(this.client === null) {
@@ -17,32 +21,20 @@ ElasticAll.prototype.connect = function (connectionConf) {
   return this;
 };
 
-
-ElasticAll.prototype.getAll = function(searchParameters) {
+/**
+ *
+ * @param searchParameters
+ */
+ElasticAll.prototype.get = function(searchParameters) {
 
   let params = searchParameters;
   let results = [];
   let first = true;
-  let stop = false;
 
-  if(typeof searchParameters === 'string') {
-      params = {
-        index: searchParameters
-      }
-  }
-
-  if(typeof params.sort === 'undefined') {
-    params.sort = [];
-  }
-
-  params.sort.push({
-    "_uid" : "desc"
-  });
-
-  function execute() {
+  const execute = () => {
 
       if(!first && results.length) {
-        params.search_after = results[results.length-1]._id;
+        params.body.search_after = results[results.length-1].sort;
       }
 
       return this.client.search(params)
@@ -60,14 +52,29 @@ ElasticAll.prototype.getAll = function(searchParameters) {
 
         }, (error) => {
 
-            console.trace(error.message);
             return Promise.reject(error);
-            execute();
 
         });
 
   }
 
+  if(typeof searchParameters === 'string') {
+      params = {
+        index: searchParameters
+      }
+  }
+
+  if(typeof params.body.sort === 'undefined') {
+    params.body.sort = [];
+  }
+
+  params.body.from = 0;
+  params.body.sort.push({
+    _uid : { order : "desc" }
+  });
+
   return execute();
 
 };
+
+module.exports = new ElasticAll();

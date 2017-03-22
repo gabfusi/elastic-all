@@ -9,6 +9,7 @@
   "author": "Gabriele Fusi | @gabfusi",
   "license": "ISC",
   "dependencies": {
-    "elasticsearch": "^12.1.3"
+    "elasticsearch": "^12.1.3",
+    "http-aws-es": "^1.1.3"
   }
 }
