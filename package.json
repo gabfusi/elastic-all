@@ -1,6 +1,6 @@
 {
   "name": "elastic-all",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Retrives all documents in an elasticsearch index",
   "main": "index.js",
   "scripts": {
