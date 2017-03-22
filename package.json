@@ -1,0 +1,14 @@
+{
+  "name": "elastic-all",
+  "version": "1.0.0",
+  "description": "Retrives all documents in an elasticsearch index",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabriele Fusi | @gabfusi",
+  "license": "ISC",
+  "dependencies": {
+    "elasticsearch": "^12.1.3"
+  }
+}
