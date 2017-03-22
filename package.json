@@ -6,8 +6,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Gabriele Fusi | @gabfusi",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabfusi/elastic-all.git"
+  },
+  "keywords": [
+    "elasticsearch",
+    "search",
+    "search after api",
+    "fetch"
+  ],
+  "author": "Gabriele Fusi <gabfusi@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "^6.4.0"
+  },
   "dependencies": {
     "elasticsearch": "^12.1.3",
     "http-aws-es": "^1.1.3"
