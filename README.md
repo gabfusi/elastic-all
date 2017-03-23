@@ -25,6 +25,7 @@ Here's an example to how fetch data from an AWS Elasticsearch Service.
 ```javascript
 const elasticAll = require('elastic-all');
 
+// connect to elastichsearch (see .use() to use an existing client)
 elasticAll.connect({
   host: '',
   log: 'error',
@@ -35,7 +36,21 @@ elasticAll.connect({
       accessKey: '',
       secretKey: ''
   }
-}).get({
+})
+// set a callback for each partial result
+.each((partialResults, next) => {
+
+  console.log(`Retrieved ${partialResults.length} documents.`)
+
+  let modifiedHits = partialResults;
+
+  /** do some stuff with partialResults array **/
+
+  next(modifiedHits);
+  
+})
+// elasticsearch query
+.get({
     index: "logs",
     size: 10000,
     body: {
@@ -44,11 +59,13 @@ elasticAll.connect({
         }
     }
 })
+// on all results fetched
 .then((results) => {
 
   console.log(`Retrieved ${results.length} documents.`)
 
 })
+// catch errors
 .catch((error) => {
 
   console.log('ERROR!')

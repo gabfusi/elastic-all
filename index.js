@@ -5,6 +5,7 @@ const elastic = require('elasticsearch');
 
 function ElasticAll() {
   this.client = null;
+  this.onEachFn = null;
   return this;
 }
 
@@ -53,8 +54,26 @@ ElasticAll.prototype.get = function(searchParameters) {
             first = false;
 
             if(hits.length) {
-              results = results.concat(hits);
-              return execute();
+
+              if(this.onEachFn !== null) {
+
+                  return new Promise((resolve, reject) => {
+                    this.onEachFn(hits, (modifiedHits) => {
+
+                      if(modifiedHits === null) {
+                        return reject();
+                      }
+
+                      results = results.concat(modifiedHits);
+                      return resolve(execute());
+                    });
+                  });
+
+              } else {
+                results = results.concat(hits);
+                return execute();
+              }
+
             }
 
             return Promise.resolve(results);
@@ -85,5 +104,21 @@ ElasticAll.prototype.get = function(searchParameters) {
   return execute();
 
 };
+
+/**
+ *
+ * @param callback
+ */
+ElasticAll.prototype.each = function(callback) {
+
+    if(typeof callback !== 'function') {
+      console.error('elastic-all#each: Please specify a function.')
+      return this;
+    }
+
+    this.onEachFn = callback;
+
+    return this;
+}
 
 module.exports = new ElasticAll();
