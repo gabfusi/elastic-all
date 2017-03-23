@@ -23,7 +23,8 @@ npm i elastic-all --save
 Here's an example to how fetch data from an AWS Elasticsearch Service.
 
 ```javascript
-const elasticAll = require('elastic-all');
+const ElasticAll = require('elastic-all');
+const elasticAll = new ElasticAll();
 
 // connect to elastichsearch (see .use() to use an existing client)
 elasticAll.connect({
@@ -47,7 +48,7 @@ elasticAll.connect({
   /** do some stuff with partialResults array **/
 
   next(modifiedHits);
-  
+
 })
 // elasticsearch query
 .get({
