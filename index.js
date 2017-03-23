@@ -62,7 +62,7 @@ ElasticAll.prototype.get = function(searchParameters) {
 
                       results = results.concat(modifiedHits ? modifiedHits : hits);
                       return resolve(execute());
-                      
+
                     });
                   });
 
@@ -118,4 +118,4 @@ ElasticAll.prototype.each = function(callback) {
     return this;
 }
 
-module.exports = new ElasticAll();
+module.exports = ElasticAll;
