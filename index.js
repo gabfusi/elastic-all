@@ -60,12 +60,9 @@ ElasticAll.prototype.get = function(searchParameters) {
                   return new Promise((resolve, reject) => {
                     this.onEachFn(hits, (modifiedHits) => {
 
-                      if(modifiedHits === null) {
-                        return reject();
-                      }
-
-                      results = results.concat(modifiedHits);
+                      results = results.concat(modifiedHits ? modifiedHits : hits);
                       return resolve(execute());
+                      
                     });
                   });
 
