@@ -20,7 +20,7 @@ npm i elastic-all --save
 
 ## Usage
 
-Here's an example to fetch data from an AWS Elasticsearch Service.
+Here's an example to how fetch data from an AWS Elasticsearch Service.
 
 ```javascript
 const elasticAll = require('elastic-all');
